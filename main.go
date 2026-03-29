@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"slices"
 	"strings"
 )
 
@@ -284,12 +285,7 @@ func flagValue(args []string, name string) string {
 }
 
 func hasFlag(args []string, name string) bool {
-	for _, a := range args {
-		if a == name {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(args, name)
 }
 
 func fatal(format string, args ...any) {
