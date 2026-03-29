@@ -6,10 +6,6 @@ on:
     tags:
       - "**"
 
-permissions:
-  contents: write
-  issues: write
-
 jobs:
   release:
     name: Release
@@ -30,11 +26,13 @@ jobs:
           version: latest
           args: release --clean
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
 
   conclusion:
     name: Release Conclusion
     runs-on: ubuntu-24.04
+    permissions:
+      issues: write
     needs: release
     if: always()
     steps:
