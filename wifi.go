@@ -13,8 +13,12 @@ func detectWiFiInterface() (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to list hardware ports: %w", err)
 	}
+	return parseWiFiInterface(string(out))
+}
 
-	scanner := bufio.NewScanner(strings.NewReader(string(out)))
+// parseWiFiInterface extracts the Wi-Fi device name from networksetup output.
+func parseWiFiInterface(output string) (string, error) {
+	scanner := bufio.NewScanner(strings.NewReader(output))
 	foundWiFi := false
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -35,9 +39,13 @@ func listSSIDs(iface string) ([]string, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to list preferred networks: %w", err)
 	}
+	return parseSSIDs(string(out)), nil
+}
 
+// parseSSIDs extracts SSID names from networksetup preferred networks output.
+func parseSSIDs(output string) []string {
 	var ssids []string
-	scanner := bufio.NewScanner(strings.NewReader(string(out)))
+	scanner := bufio.NewScanner(strings.NewReader(output))
 	first := true
 	for scanner.Scan() {
 		if first {
@@ -49,7 +57,7 @@ func listSSIDs(iface string) ([]string, error) {
 			ssids = append(ssids, ssid)
 		}
 	}
-	return ssids, nil
+	return ssids
 }
 
 // removeSSID removes a single SSID from the preferred network list.
