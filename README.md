@@ -6,6 +6,14 @@ macOS remembers every Wi-Fi network you've ever joined, which is a security risk
 
 ## Install
 
+With Homebrew:
+
+```sh
+brew install hilli/tap/mac-wifi-cleaner
+```
+
+With Go:
+
 ```sh
 go install github.com/hilli/mac-wifi-cleaner@latest
 ```
