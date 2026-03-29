@@ -63,6 +63,38 @@ This will:
 
 Add `--dry-run` to preview without making changes.
 
+Example:
+
+```shell
+$ mac-wifi-cleaner auto
+Opening 123 SSIDs in zed. Remove the networks you want to DELETE, save and quit.
+
+Keeping 117 networks, removing 6:
+  - BreezeGardenHill
+  - RNet_2
+  - Radisson_Guest
+  - Skodsborg Guest
+  - dlink-2FD4
+  - HomeBox-C5B0_2.4G
+
+Continue? [y/N] y
+  ✓ Removed BreezeGardenHill
+  ✓ Removed RNet_2
+  ✓ Removed Radisson_Guest
+  ✓ Removed Skodsborg Guest
+  ✓ Removed dlink-2FD4
+  ✓ Removed HomeBox-C5B0_2.4G
+
+Done. Removed 6 network(s).
+```
+
+Verify:
+
+```shell
+$ mac-wifi-cleaner list | wc -l
+     117
+```
+
 ## Notes
 
 - Automatically detects your Wi-Fi interface (no need to know if it's `en0`, `en1`, etc.)
