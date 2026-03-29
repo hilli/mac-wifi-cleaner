@@ -142,9 +142,10 @@ func cmdAuto() {
 	if editor == "" {
 		editor = "vim"
 	}
+	editorArgs := strings.Fields(editor)
 
-	fmt.Printf("Opening %d SSIDs in %s. Remove the networks you want to DELETE, save and quit.\n", len(ssids), editor)
-	cmd := exec.Command(editor, tmpPath)
+	fmt.Printf("Opening %d SSIDs in %s. Remove the networks you want to DELETE, save and quit.\n", len(ssids), editorArgs[0])
+	cmd := exec.Command(editorArgs[0], append(editorArgs[1:], tmpPath)...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
