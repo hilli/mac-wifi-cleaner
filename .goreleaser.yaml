@@ -36,6 +36,30 @@ archives:
     files:
       - README.md
 
+homebrew_casks:
+  - name: mac-wifi-cleaner
+    commit_author:
+      name: Jens Hilligsøe
+      email: github@hilli.dk
+    commit_msg_template: "Brew cask update for {{ .ProjectName }} version {{ .Tag }}"
+    homepage: "https://github.com/hilli/mac-wifi-cleaner"
+    description: "Clean up the long list of preferred Wi-Fi networks on your Mac"
+    url:
+      verified: github.com/hilli/mac-wifi-cleaner
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/mac-wifi-cleaner"]
+          end
+    repository:
+      owner: hilli
+      name: homebrew-tap
+      branch: release-mac-wifi-cleaner-{{.Tag}}
+      pull_request:
+        enabled: true
+        draft: false
+
 changelog:
   sort: asc
   filters:
